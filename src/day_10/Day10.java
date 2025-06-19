@@ -1,9 +1,19 @@
 package day_10;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Day10 {
 
-    public static void main(String[] args) {
-        String input = "3113322113";
+    public static void main(String[] args) throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        List<String> inputLines = reader.lines().collect(Collectors.toList());
+        reader.close();
+        
+        String input = inputLines.getFirst();
 
         System.out.println("Part one: " + iterateProcessing(input, 40));
         System.out.println("Part two: " + iterateProcessing(input, 50));
