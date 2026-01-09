@@ -26,7 +26,60 @@ public class Day17 {
             }
         }
 
+//        bruteForce(numbers);
+        recursion(numbers);
+    }
+
+    private static final int TARGET_VOLUME = 150;
+    
+    private static int part1Count = 0;
+    private static int minContainers = Integer.MAX_VALUE;
+    private static int minContainerCount = 0;
+    
+    private static void recursion(int[] numbers) {
+        part1Count = 0;
+        minContainers = Integer.MAX_VALUE;
+        minContainerCount = 0;
+        
         long startTime = System.currentTimeMillis();
+        
+        findCombinations(numbers, 0, 0, 0);
+        
+        System.out.println("Part 1: " + part1Count);
+        System.out.println("Part 2: " + minContainerCount);
+        System.out.println(String.format("Time: %d ms", System.currentTimeMillis() - startTime));
+    }
+
+    private static void findCombinations(int []numbers, int index, int currentTotal, int containerCount) {
+        if (currentTotal == TARGET_VOLUME) {
+            // Target reached, so count this combination
+            part1Count++;
+            
+            if (containerCount < minContainers) {
+                minContainers = containerCount;
+                minContainerCount = 1;
+            } else if (containerCount == minContainers) {
+                minContainerCount++;
+            }
+            
+            return;
+        }
+        
+        if (currentTotal > TARGET_VOLUME || index >= numbers.length) {
+            // Either we've exceeded the target or run out of containers
+            return;
+        }
+        
+        // Move to the next container, including the current container
+        findCombinations(numbers, index + 1, currentTotal + numbers[index], containerCount + 1);
+        
+        // Move to the next container, but exclude the current container
+        findCombinations(numbers, index + 1, currentTotal, containerCount);
+    }
+    
+    private static void bruteForce(int[] numbers) {
+        long startTime = System.currentTimeMillis();
+        int numCount = numbers.length;
         int part1Count = 0;
         int minContainers = Integer.MAX_VALUE;
         int minContainerCount = 0;
@@ -42,7 +95,7 @@ public class Day17 {
                 }
             }
             
-            if (value == 150) {
+            if (value == TARGET_VOLUME) {
                 part1Count++;
                 
                 if (containerCount < minContainers) {
