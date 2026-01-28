@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class Day21 {
 
     public static void main(String[] args) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_21/input.txt")));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/day_21/items.txt")));
         List<String> inputLines = reader.lines().collect(Collectors.toList());
         reader.close();
         
